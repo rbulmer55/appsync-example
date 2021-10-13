@@ -1,0 +1,34 @@
+version: "2.1"
+services:
+  localstack:
+    container_name: localstack_appsync
+    image: localstack/localstack:latest
+    ports:
+      - "127.0.0.1:53:53"
+      - "127.0.0.1:443:443"
+      - "127.0.0.1:4566:4566"
+      - "127.0.0.1:4571:4571"
+      - "127.0.0.1:${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
+    environment:
+      - SERVICES=${SERVICES- }
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - PORT_WEB_UI=${PORT_WEB_UI- }
+      - LAMBDA_EXECUTOR=local
+      - KINESIS_ERROR_PROBABILITY=${KINESIS_ERROR_PROBABILITY- }
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - HOST_TMP_FOLDER=${TMPDIR}
+      - DEFAULT_REGION=eu-west-1
+      - LAMBDA_REMOTE_DOCKER=false
+      - LAMBDA_REMOVE_CONTAINERS=false
+      - LOCALSTACK_HOSTNAME=${LOCALSTACK_HOSTNAME- }
+      - HOSTNAME_FROM_LAMBDA=localstack_appsync
+      - LOCALSTACK_API_KEY=${LOCALSTACK_API_KEY}
+      - LOG_LICENSE_ISSUES=1
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    privileged: true
+
+networks:
+  default:
+    name: orca

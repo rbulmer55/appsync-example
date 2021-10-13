@@ -1,0 +1,24 @@
+{
+  // base tsconfig config
+  "compilerOptions": {
+    "declaration": true,
+    "declarationMap": true,
+    "target": "es5",
+    "removeComments": true,
+    "noUnusedLocals": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "preserveConstEnums": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "strict": true,
+    "outDir": ".build",
+    "noImplicitAny": false,
+    "incremental": true,
+    "watch": false,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
+  },
+  "exclude": ["**/__mocks__/*", "**/__tests__/*"]
+}
