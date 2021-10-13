@@ -6,9 +6,7 @@ In the root folder run `npm i` and once this is complete run `npm run bootstrap`
 
 ## Commiting changes
 
-To commit changes run the following `npm run commit` which will run commitizen as shown below:
-
-![commit](docs/images/commit.png)
+To commit changes run the following `npm run commit` which will run commitizen.
 
 ## Running all services locally
 
