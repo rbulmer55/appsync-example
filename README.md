@@ -21,7 +21,7 @@ This will run up all of the API services with serverless offline, and will deplo
 In the root folder run the following commands in separate terminals:
 
 `npm run start:docker`
-`npm run start:services -- --scope=@adylic/{microservice}`
+`npm run start:services -- --scope={microservice}`
 
 ## Running all unit tests & linting
 

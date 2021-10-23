@@ -1,0 +1,20 @@
+{
+    "name": "regex-validation",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc",
+        "test": "jest --runInBand --testPathPattern=regex-validation --passWithNoTests --config=../../jest.config.js",
+        "test:watch": "jest --runInBand --watch --testPathPattern=regex-validation --passWithNoTests --config=../../jest.config.js",
+        "test:coverage": "jest --coverage",
+        "lint": "eslint . --ext .ts",
+        "prettier": "prettier --config .prettierrc 'src/**/*.ts' --write",
+        "docs": "npx typedoc"
+    },
+    "devDependencies": {
+        "jest": "^27.3.1"
+    },
+    "author": "rob.bulmer",
+    "license": "ISC"
+}

@@ -1,11 +1,21 @@
 {
-  "name": "@adylic/appsync-example",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "rob.bulmer@adylic",
-  "license": "ISC"
+    "name": "appsync-example",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest --runInBand --testPathPattern=apps/appsync-example/.+\\.spec\\.ts$ --passWithNoTests --config=../../jest.config.js",
+        "test:watch": "jest --runInBand --testPathPattern=apps/appsync-example/.+\\.spec\\.ts$ --watch --passWithNoTests --config=../../jest.config.js",
+        "test:int": "jest --runInBand --testPathPattern=apps/appsync-example/.+\\.int\\.ts$ --passWithNoTests --config=../../jest.config.js",
+        "test:int:watch": "jest --watch --runInBand --testPathPattern=apps/appsync-example/.+\\.int\\.ts$ --passWithNoTests --config=../../jest.config.js",
+        "test:coverage": "jest --testPathPattern=apps/appsync-example --coverage",
+        "lint": "eslint . --ext .ts",
+        "prettier": "prettier --config .prettierrc 'src/**/*.ts' --write"
+    },
+    "author": "rob.bulmer",
+    "license": "ISC",
+    "devDependencies": {
+        "appsync-template-tester": "^1.1.7",
+        "jest": "^27.3.1"
+    }
 }

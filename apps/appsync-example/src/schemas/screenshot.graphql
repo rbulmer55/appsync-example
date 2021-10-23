@@ -1,0 +1,37 @@
+type ProcessScreenshots {
+    jobId: ID!
+    format: ScreenshotFormatEnum!
+    status: ScreenshotStatusEnum!
+    message: String
+}
+
+type CreativeInput {
+    creativeUrl: String!
+    format: ScreenshotFormatEnum!
+}
+
+type ScreenshotStatus {
+    jobId: ID!
+    format: ScreenshotFormatEnum!
+    status: ScreenshotStatusEnum!
+    message: String
+    downloadPath: String
+}
+
+enum ScreenshotFormatEnum {
+    RETINA
+    NON_RETINA
+}
+
+enum ScreenshotStatusEnum {
+    PROCESSING
+    COMPLETE
+}
+
+type Mutation {
+    downloadScreenshots(creative: CreativeInput!): ProcessScreenshots!
+}
+
+type Query {
+    getScreenshotStatus(jobId: ID!): ScreenshotStatus!
+}
