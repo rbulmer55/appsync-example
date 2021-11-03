@@ -2,7 +2,7 @@
     "name": "regex-validation",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "lib/index.js",
     "scripts": {
         "build": "tsc",
         "test": "jest --runInBand --testPathPattern=regex-validation --passWithNoTests --config=../../jest.config.js",

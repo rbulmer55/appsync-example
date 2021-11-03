@@ -5,7 +5,7 @@ type ProcessScreenshots {
     message: String
 }
 
-type CreativeInput {
+input CreativeInput {
     creativeUrl: String!
     format: ScreenshotFormatEnum!
 }
@@ -34,4 +34,9 @@ type Mutation {
 
 type Query {
     getScreenshotStatus(jobId: ID!): ScreenshotStatus!
+}
+
+schema {
+    query: Query
+    mutation: Mutation
 }
