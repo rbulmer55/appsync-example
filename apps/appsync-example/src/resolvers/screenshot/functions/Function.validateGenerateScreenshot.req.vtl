@@ -1,14 +1,18 @@
 #set($errors = [])
 
-#set($valid = $util.matches("${regxCreativeUrl}", $ctx.args.creativeUrl))
+#set($valid = $util.matches("${regxCreativeUrl}", $ctx.args.creative.creativeUrl))
 #if (!$valid)
-    #if ($util.isNullOrEmpty($ctx.args.creativeUrl))
+    #if ($util.isNullOrEmpty($ctx.args.creative.creativeUrl))
         #set($propertyRequiredError = "${propertyRequiredError}")
         $util.qr($errors.add($propertyRequiredError.replace("{0}","Creative Url")))
     #else
-        #set($propertyNotValidError = "${propertyNotValidError})
-        $util.qr($errors.add($propertyNotValidError.replace("{0}", $ctx.args.creativeUrl).replace("{1}", "creative url")))
+        #set($propertyNotValidError = "${propertyNotValidError}")
+        $util.qr($errors.add($propertyNotValidError.replace("{0}", $ctx.args.creative.creativeUrl).replace("{1}", "creativeUrl")))
     #end
+#end
+
+#if ($errors.size() > 0)
+    $util.error($util.toJson($errors))
 #end
 
 ## Return if no errors

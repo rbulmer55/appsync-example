@@ -8,9 +8,8 @@ module.exports = [
         name: 'dynamodbDS',
         config: {
             tableName: {
-                Ref: 'appsyncExampletable',
+                Ref: 'appsyncExampleTable',
             },
-            region: '$self:provider.region',
         },
     },
 ];

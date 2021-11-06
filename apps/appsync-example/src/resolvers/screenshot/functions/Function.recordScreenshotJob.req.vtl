@@ -1,0 +1,14 @@
+{
+    "version": "2018-05-29",
+    "operation": "PutItem",
+    "key": {
+        "pk": $util.dynamodb.toDynamoDBJson($util.autoId()),
+        "sk": $util.dynamodb.toDynamoDBJson("job#screenshot")
+
+    },
+    "attributeValues": {
+        "creativeUrl": $util.dynamodb.toDynamoDBJson($ctx.args.creative.creativeUrl),
+        "format": $util.dynamodb.toDynamoDBJson($ctx.args.creative.format),
+        "status": $util.dynamodb.toDynamoDBJson("PROCESSING"),
+    }
+}

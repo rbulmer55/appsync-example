@@ -1,13 +1,20 @@
-const { resolve } = require('path');
+//const { resolve } = require('path');
 
 module.exports = [
     {
-        dataSource: 'none',
+        type: 'Mutation',
+        kind: 'PIPELINE',
+        field: 'downloadScreenshots',
+        functions: ['validateGenerateScreenshot', 'recordScreenshotJob'],
+        request: 'screenshot/pipelines/Before.generateScreenshots.req.vtl',
+        response: 'shared/pipelines/After.each.res.vtl',
+    },
+    {
         type: 'Query',
         kind: 'PIPELINE',
         field: 'getScreenshotStatus',
-        functions: ['validateGenerateScreenshot'],
-        request: resolve('src/resolvers/screenshot/pipelines/Before.generateScreenshots.req.vtl'),
-        response: resolve('src/resolvers/screenshot/pipelines/After.generateScreenshots.res.vtl'),
+        functions: ['getScreenshotStatus'],
+        request: 'shared/pipelines/Before.each.req.vtl',
+        response: 'shared/pipelines/After.each.res.vtl',
     },
 ];

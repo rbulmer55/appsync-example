@@ -1,7 +1,8 @@
+const { resolve } = require('path');
 const { generateRegexList, regexes } = require('regex-validation');
 
 const mappingTemplates = require('./src/mapping-templates');
-const functionConfigs = require('./src/function-configurations');
+const functionConfigurations = require('./src/function-configurations');
 const dataSources = require('./src/data-sources');
 
 module.exports = {
@@ -19,7 +20,7 @@ module.exports = {
             AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1,
         },
         deploymentBucket: {
-            name: 'rb-021121',
+            name: 'ady-021121',
             serverSideEncryption: 'AES256',
         },
     },
@@ -34,7 +35,7 @@ module.exports = {
     functions: {},
     resources: {
         Resources: {
-            appsyncExampletable: {
+            appsyncExampleTable: {
                 Type: 'AWS::DynamoDB::Table',
                 Properties: {
                     AttributeDefinitions: [
@@ -111,10 +112,21 @@ module.exports = {
             authenticationType: 'API_KEY',
             schema: './src/schemas/screenshot.graphql',
             apiKeys: [{ name: 'robsKey', description: 'My api key', expiresAfter: '30d' }],
-            ...mappingTemplates,
-            ...functionConfigs,
-            ...dataSources,
-            substitutions: { ...generateRegexList(regexes) },
+            mappingTemplatesLocation: resolve('src/resolvers'),
+            mappingTemplates,
+            functionConfigurationsLocation: resolve('src/resolvers'),
+            functionConfigurations,
+            dataSources,
+            substitutions: {
+                ...generateRegexList(regexes),
+                regxCreativeUrl: '^[a-zA-Z]{1,10}$',
+                propertyRequiredError: '{0} is a required property',
+                propertyNotValidError: '{0} is not a valid {1} property',
+            },
+            logConfig: {
+                level: 'ALL',
+                excludeVerboseContent: false,
+            },
         },
         defaultStage: 'local',
         stages: ['local', 'development', 'staging', 'production'],

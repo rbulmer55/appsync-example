@@ -2,7 +2,7 @@ import { render } from 'appsync-testing';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-const templateFilePath = join(__dirname, '../After.each.res.vtl');
+const templateFilePath = join(__dirname, '../Function.sharedResponse.res.vtl');
 const template: string = readFileSync(templateFilePath).toString();
 
 let context;
@@ -13,7 +13,7 @@ beforeEach(() => {
     };
 });
 
-describe('After each request is processed', () => {
+describe('Shared Response is processed', () => {
     describe('response', () => {
         it('should render the vtl', () => {
             const expected = 'result';
