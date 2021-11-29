@@ -20,21 +20,63 @@ module.exports = {
             AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1,
         },
         deploymentBucket: {
-            name: 'ady-021121',
+            name: 'rb-291121',
             serverSideEncryption: 'AES256',
         },
     },
-    plugins: [
-        'serverless-appsync-plugin', //'serverless-webpack',
-        'serverless-deployment-bucket',
-    ],
+    plugins: ['serverless-appsync-plugin', 'serverless-webpack', 'serverless-deployment-bucket'],
     package: {
         individually: true,
         exclude: ['node_modules/**'],
     },
-    functions: {},
+    functions: {
+        appSyncReceiver: {
+            name: 'robsAppSyncReceiver',
+            handler: 'src/handlers/receiver/receiver.handler',
+            memorySize: 128,
+            timeout: 30,
+        },
+    },
     resources: {
         Resources: {
+            appSyncSQSRole: {
+                Type: 'AWS::IAM::Role',
+                Properties: {
+                    Path: '/ady/lambda/customroles/',
+                    RoleName: 'appsync-example-sqs-role',
+                    AssumeRolePolicyDocument: {
+                        Version: '2012-10-17',
+                        Statement: [
+                            {
+                                Effect: 'Allow',
+                                Principal: {
+                                    Service: ['appsync.amazonaws.com'],
+                                },
+                                Action: 'sts:AssumeRole',
+                            },
+                        ],
+                    },
+                    Policies: [
+                        {
+                            PolicyName: 'appsync-example-sqs-policy',
+                            PolicyDocument: {
+                                Version: '2012-10-17',
+                                Statement: [
+                                    {
+                                        Effect: 'Allow',
+                                        Action: ['sqs:SendMessage'],
+                                        Resource: [
+                                            {
+                                                'Fn::GetAtt': ['appSyncSqsQueue', 'Arn'],
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
             appsyncExampleTable: {
                 Type: 'AWS::DynamoDB::Table',
                 Properties: {
@@ -104,6 +146,27 @@ module.exports = {
                     ],
                 },
             },
+            appSyncSqsQueue: {
+                Type: 'AWS::SQS::Queue',
+                Properties: {
+                    DelaySeconds: 0,
+                    QueueName: 'robsAppSyncSQSQueue',
+                    RedrivePolicy: {
+                        deadLetterTargetArn: { 'Fn::GetAtt': ['appSyncSqsDeadLetterQueue', 'Arn'] },
+                        maxReceiveCount: 3,
+                    },
+                    VisibilityTimeout: 60,
+                },
+            },
+            appSyncSqsDeadLetterQueue: {
+                Type: 'AWS::SQS::Queue',
+                Properties: {
+                    DelaySeconds: 0,
+                    MessageRetentionPeriod: 1209600, // 14 days
+                    QueueName: 'robsAppSyncSQSDLQ',
+                    VisibilityTimeout: 60,
+                },
+            },
         },
     },
     custom: {
@@ -130,12 +193,12 @@ module.exports = {
         },
         defaultStage: 'local',
         stages: ['local', 'development', 'staging', 'production'],
-        // webpack: {
-        //     webpackConfig: 'webpack.config.js',
-        //     excludeFiles: 'src/**/*.spec.ts',
-        //     includeModules: {
-        //         forceExclude: ['aws-sdk'],
-        //     },
-        // },
+        webpack: {
+            webpackConfig: 'webpack.config.js',
+            excludeFiles: 'src/**/*.spec.ts',
+            includeModules: {
+                forceExclude: ['aws-sdk'],
+            },
+        },
     },
 };

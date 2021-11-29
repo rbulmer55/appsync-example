@@ -1,0 +1,15 @@
+#set ($body = "Action=SendMessage&Version=2012-11-05")
+#set ($messageBody = $util.urlEncode($util.toJson($ctx.args.creative)))
+#set ($queueUrl = $util.urlEncode("https://sqs.eu-west-1.amazonaws.com/727626130853/robsAppSyncSQSQueue"))
+#set ($body = "$body&MessageBody=$messageBody&QueueUrl=$queueUrl")
+{
+  "version": "2018-05-29",
+  "method": "POST",
+  "resourcePath": "/727626130853/robsAppSyncSQSQueue",
+  "params": {
+    "body": "$body",
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  }
+}

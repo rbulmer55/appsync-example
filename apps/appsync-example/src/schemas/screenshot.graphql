@@ -30,6 +30,8 @@ enum ScreenshotStatusEnum {
 
 type Mutation {
     downloadScreenshots(creative: CreativeInput!): ProcessScreenshots!
+    downloadScreenshotsAsync(creative: CreativeInput!): String!
+    downloadScreenshotsLambda(creative: CreativeInput!): String!
 }
 
 type Query {

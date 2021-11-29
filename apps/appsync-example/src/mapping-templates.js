@@ -17,4 +17,20 @@ module.exports = [
         request: 'shared/pipelines/Before.each.req.vtl',
         response: 'shared/pipelines/After.each.res.vtl',
     },
+    {
+        type: 'Mutation',
+        kind: 'PIPELINE',
+        field: 'downloadScreenshotsAsync',
+        functions: ['validateGenerateScreenshot', 'downloadAsyncSQS'],
+        request: 'screenshot/pipelines/Before.generateScreenshots.req.vtl',
+        response: 'shared/pipelines/After.each.res.vtl',
+    },
+    {
+        type: 'Mutation',
+        kind: 'PIPELINE',
+        field: 'downloadScreenshotsLambda',
+        functions: ['validateGenerateScreenshot', 'downloadLambda'],
+        request: 'screenshot/pipelines/Before.generateScreenshots.req.vtl',
+        response: 'shared/pipelines/After.each.res.vtl',
+    },
 ];

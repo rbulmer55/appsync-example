@@ -1,0 +1,37 @@
+mutation myMutation {
+	downloadScreenshots(creative:{
+    #creativeUrl:"https://some-url-preview.com/1234"
+    creativeUrl:"prevurl"
+    format:RETINA
+  }){
+    jobId
+    message
+    format
+    status
+  }
+}
+
+query myQuery{
+  getScreenshotStatus(jobId:"14697d8f-6204-4b29-b5bb-0b42d791f098"){
+    jobId,
+    status,
+    message,
+    format
+  }
+}
+
+mutation myMutationSQS {
+	downloadScreenshotsAsync(creative:{
+    #creativeUrl:"https://some-url-preview.com/1234"
+    creativeUrl:"prevurl"
+    format:RETINA
+  })
+}
+
+mutation myMutationLambda {
+	downloadScreenshotsLambda(creative:{
+    #creativeUrl:"https://some-url-preview.com/1234"
+    creativeUrl:"prevurl"
+    format:RETINA
+  })
+}

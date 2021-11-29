@@ -51,7 +51,7 @@
         "lerna": "^4.0.0",
         "lint-staged": "^11.2.3",
         "serverless": "^2.64.1",
-        "serverless-appsync-plugin": "^1.12.0",
+        "serverless-appsync-plugin": "^1.12.1",
         "serverless-deployment-bucket": "^1.5.1",
         "serverless-webpack": "^5.5.4",
         "ts-jest": "^27.0.5",
@@ -80,5 +80,7 @@
     "contributors": [
         "Rob Bulmer <r95@hotmail.co.uk"
     ],
-    "dependencies": {}
+    "dependencies": {
+        "ts-loader": "^9.2.6"
+    }
 }

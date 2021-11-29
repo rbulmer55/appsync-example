@@ -18,4 +18,16 @@ module.exports = [
         request: 'screenshot/functions/Function.getScreenshotStatus.req.vtl',
         response: 'screenshot/functions/Function.getScreenshotStatus.res.vtl',
     },
+    {
+        name: 'downloadAsyncSQS',
+        dataSource: 'sqsDSHTTP',
+        request: 'screenshot/functions/Function.downloadAsyncSQS.req.vtl',
+        response: 'screenshot/functions/Function.downloadAsyncSQS.res.vtl',
+    },
+    {
+        name: 'downloadLambda',
+        dataSource: 'receiverLambdaDS',
+        request: 'screenshot/functions/Function.downloadLambda.req.vtl',
+        response: 'screenshot/functions/Function.downloadLambda.res.vtl',
+    },
 ];
